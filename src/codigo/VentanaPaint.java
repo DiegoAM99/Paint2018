@@ -10,6 +10,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.awt.Component;
+import javax.swing.JToggleButton;
 
 /**
  *
@@ -17,14 +19,12 @@ import java.awt.image.BufferedImage;
  */
 public class VentanaPaint extends javax.swing.JFrame {
     BufferedImage buffer , buffer2= null;
-    Circulo circulo;
-    Cuadrado cuadrado;
-    Triangulo triangulo;
-    Pentagono pentagono;
+    Forma miForma;
     Color colorSeleccionado =  Color.BLACK;
-    int formaSeleccionada = 0; //si vale 0 pinto circulos
-                               //si vale 1 pinto cuadrados
-                               //si vale 2 pinto triangulos
+    int formaSeleccionada = 100; //si vale 100 pinto circulos
+                               //si vale 4 pinto cuadrados
+                               //si vale 3 pinto triangulos
+                               //si vale 5 pinto pentagonos
     Graphics2D bufferGraphics, buffer2Graphics, jPanelGraphics = null;
     
     /**
@@ -63,6 +63,14 @@ private void inicializaBuffers(){
         
         jPanelGraphics.drawImage(buffer, 0, 0, null);
 }
+    private void deSelecciona(){
+        Component[] components = (Component[]) getContentPane().getComponents();
+        for (Component comp : components) {
+            if (comp instanceof JToggleButton) {
+                ((JToggleButton)comp).setSelected(false);
+            }
+        } 
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -184,6 +192,11 @@ private void inicializaBuffers(){
 
         jToggleButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/linea.png"))); // NOI18N
         jToggleButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jToggleButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jToggleButton3MousePressed(evt);
+            }
+        });
 
         jToggleButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/circulo.png"))); // NOI18N
         jToggleButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -246,12 +259,8 @@ private void inicializaBuffers(){
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
         bufferGraphics.drawImage(buffer2,0,0,null);
         //Dibuja la forma correspondiente
-         switch(formaSeleccionada){
-            case 0: circulo.dibujate(bufferGraphics, evt.getX()); break;
-            case 1: cuadrado.dibujate(bufferGraphics, evt.getX()); break;
-            case 2: triangulo.dibujate(bufferGraphics, evt.getY()); break;
-            case 3: pentagono.dibujate(bufferGraphics, evt.getY()); break;
-        }
+            miForma.dibujate(bufferGraphics, evt.getY(),evt.getX());
+            miForma.dibujate(bufferGraphics, evt.getY(), evt.getX()); 
         
         repaint(0,0,1,1);
     }//GEN-LAST:event_jPanel1MouseDragged
@@ -259,10 +268,10 @@ private void inicializaBuffers(){
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
         // Inicializo la ellipse que usaré para dibujar en el buffer
         switch(formaSeleccionada){
-            case 0: circulo = new Circulo(evt.getX(), evt.getY(), 1, colorSeleccionado, jCheckBox1.isSelected()); break;
-            case 1: cuadrado = new Cuadrado(evt.getX(), evt.getY(), 1, colorSeleccionado, jCheckBox1.isSelected()); break;
-            case 2: triangulo = new Triangulo(evt.getX(), evt.getY(), 1, colorSeleccionado, jCheckBox1.isSelected()); break;
-            case 3: pentagono = new Pentagono(evt.getX(), evt.getY(), 1, colorSeleccionado, jCheckBox1.isSelected()); break;
+            case 100: miForma = new Circulo(evt.getX(), evt.getY(),colorSeleccionado, jCheckBox1.isSelected()); break;
+            case 4: miForma = new Cuadrado(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
+            case 3: miForma = new Triangulo(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
+            case 5: miForma = new Pentagono(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
         }
         
         
@@ -271,12 +280,8 @@ private void inicializaBuffers(){
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
 
          //Dibuja la forma correspondiente
-         switch(formaSeleccionada){
-            case 0: circulo.dibujate(buffer2Graphics, evt.getX()); break;
-            case 1: cuadrado.dibujate(buffer2Graphics, evt.getX()); break;
-            case 2: triangulo.dibujate(buffer2Graphics, evt.getY()); break;
-            case 3: pentagono.dibujate(buffer2Graphics, evt.getY()); break;
-        }
+          miForma.dibujate(buffer2Graphics, evt.getY(),evt.getX());
+      
     }//GEN-LAST:event_jPanel1MouseReleased
 
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
@@ -296,35 +301,30 @@ private void inicializaBuffers(){
 
     private void jToggleButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton1MousePressed
         //elige circulos
-        formaSeleccionada = 0;
-        jToggleButton2.setSelected(false);
-        jToggleButton3.setSelected(false);
-        jToggleButton5.setSelected(false);
+        formaSeleccionada = 100;
+        deSelecciona();
     }//GEN-LAST:event_jToggleButton1MousePressed
 
     private void jToggleButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton2MousePressed
         //elige cuadrados
-        formaSeleccionada = 1;
-        jToggleButton1.setSelected(false);
-        jToggleButton3.setSelected(false);
-        jToggleButton5.setSelected(false);
+        formaSeleccionada = 4;
+        deSelecciona();
     }//GEN-LAST:event_jToggleButton2MousePressed
 
     private void jToggleButton4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton4MousePressed
-        formaSeleccionada = 2;
-        jToggleButton1.setSelected(false);
-        jToggleButton2.setSelected(false);
-        jToggleButton3.setSelected(false);
-        jToggleButton5.setSelected(false);
+        formaSeleccionada = 3;
+        deSelecciona();
     }//GEN-LAST:event_jToggleButton4MousePressed
 
     private void jToggleButton5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton5MousePressed
-        formaSeleccionada = 3;
-        jToggleButton1.setSelected(false);
-        jToggleButton2.setSelected(false);
-        jToggleButton3.setSelected(false);
-        jToggleButton4.setSelected(false);
+        formaSeleccionada = 5;
+        deSelecciona();
     }//GEN-LAST:event_jToggleButton5MousePressed
+
+    private void jToggleButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton3MousePressed
+        
+        deSelecciona();
+    }//GEN-LAST:event_jToggleButton3MousePressed
 
     /**
      * @param args the command line arguments
