@@ -397,7 +397,7 @@ private void inicializaBuffers(){
                 try{
                     ImageIO.write(buffer, extension, fichero);
                 }
-                catch(IOException e){
+                catch(IOException e){}
             }
         }
     }//GEN-LAST:event_jMenuItem1MousePressed
