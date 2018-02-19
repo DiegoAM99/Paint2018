@@ -14,7 +14,7 @@ import java.awt.Color;
  */
 public class Cuadrado extends Forma{
     public Cuadrado (int _posX, int _posY,Color _color, boolean _relleno){
-         //inicializo el constructor del triangulo
+         //inicializo el constructor del cuadrado correctamente para que guarde 4 lados.
          super(_posX,_posY,4, _color,_relleno);
      }
 }

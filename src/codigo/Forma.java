@@ -43,7 +43,7 @@ public class Forma extends Polygon{
     }
      
      //recalcula la posicion de los vertices en un poligono regular
-     private void calculaVertices (int _radio, double _giro){
+     public void calculaVertices (int _radio, double _giro){
         for(int i=0; i<npoints; i++){
             this.xpoints[i] = (int) (x + _radio*Math.cos((2*Math.PI * i + _giro)/npoints));
             this.ypoints[i] = (int) (y + _radio*Math.sin((2*Math.PI * i + _giro)/npoints));
