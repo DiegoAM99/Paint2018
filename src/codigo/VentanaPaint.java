@@ -30,6 +30,7 @@ public class VentanaPaint extends javax.swing.JFrame {
                                //si vale 4 pinto cuadrados
                                //si vale 3 pinto triangulos
                                //si vale 5 pinto pentagonos
+                               //si vale 2 pinto linea
     Graphics2D bufferGraphics, buffer2Graphics, jPanelGraphics = null;
     
     /**
@@ -227,7 +228,7 @@ private void inicializaBuffers(){
             }
         });
 
-        jToggleButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/circulo.png"))); // NOI18N
+        jToggleButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/triangulo.png"))); // NOI18N
         jToggleButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jToggleButton4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -235,7 +236,7 @@ private void inicializaBuffers(){
             }
         });
 
-        jToggleButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/circulo.png"))); // NOI18N
+        jToggleButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pentagono.png"))); // NOI18N
         jToggleButton5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jToggleButton5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -243,7 +244,7 @@ private void inicializaBuffers(){
             }
         });
 
-        jToggleButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/circulo.png"))); // NOI18N
+        jToggleButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/estrella.png"))); // NOI18N
         jToggleButton6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jToggleButton6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -342,6 +343,7 @@ private void inicializaBuffers(){
             case 3: miForma = new Triangulo(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
             case 5: miForma = new Pentagono(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
             case 24: miForma = new Estrella(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
+            case 2: miForma = new Linea(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
         }
         
         
@@ -382,21 +384,25 @@ private void inicializaBuffers(){
     }//GEN-LAST:event_jToggleButton2MousePressed
 
     private void jToggleButton4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton4MousePressed
+        //elige triangulos
         formaSeleccionada = 3;
         deSelecciona();
     }//GEN-LAST:event_jToggleButton4MousePressed
 
     private void jToggleButton5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton5MousePressed
+        //elige pentagono
         formaSeleccionada = 5;
         deSelecciona();
     }//GEN-LAST:event_jToggleButton5MousePressed
 
     private void jToggleButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton3MousePressed
-        
+        //elige lineas
+        formaSeleccionada = 2;
         deSelecciona();
     }//GEN-LAST:event_jToggleButton3MousePressed
 
     private void jToggleButton6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton6MousePressed
+        //elige estrella
         formaSeleccionada = 24;
         deSelecciona();
     }//GEN-LAST:event_jToggleButton6MousePressed
