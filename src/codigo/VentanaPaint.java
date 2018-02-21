@@ -103,6 +103,7 @@ private void inicializaBuffers(){
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jButton1.setText("Cancelar");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -266,6 +267,15 @@ private void inicializaBuffers(){
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setText("Cargar");
+        jMenuItem2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem2MousePressed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -393,6 +403,7 @@ private void inicializaBuffers(){
 
     private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
         int seleccion = jFileChooser1.showSaveDialog(this);
+        
         if(seleccion== JFileChooser.APPROVE_OPTION){
             //si llego aqui es que el usuario ha pulsado "guardar" cuando ha salido
             //el menú del jFileChooser
@@ -415,6 +426,30 @@ private void inicializaBuffers(){
         }
         
     }//GEN-LAST:event_jMenu1StateChanged
+
+    private void jMenuItem2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MousePressed
+        int seleccion = jFileChooser1.showOpenDialog(this);
+        
+        if (seleccion == JFileChooser.APPROVE_OPTION){
+            //si llego aquí es que el usuario ha pulsado en "guardar" cuando ha salido 
+            //el menú del jFileChooser
+            File fichero = jFileChooser1.getSelectedFile();
+            String nombre = fichero.getName();
+            String extension = nombre.substring(nombre.lastIndexOf('.')+1);
+            BufferedImage imagen = null;
+            if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")){
+                try{
+                    imagen = ImageIO.read(fichero);
+                    bufferGraphics.drawImage(imagen,0,0,null);
+                    buffer2Graphics.drawImage(imagen,0,0,null);
+                    
+                    repaint();
+                }
+                catch(IOException e){
+                }
+            }
+        }
+    }//GEN-LAST:event_jMenuItem2MousePressed
 
     /**
      * @param args the command line arguments
@@ -463,6 +498,7 @@ private void inicializaBuffers(){
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
