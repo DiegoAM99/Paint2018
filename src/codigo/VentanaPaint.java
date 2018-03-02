@@ -262,7 +262,6 @@ private void inicializaBuffers(){
             }
         });
 
-        jSlider1.setMinimum(1);
         jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
         jSlider1.setValue(1);
         jSlider1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -392,7 +391,7 @@ private void inicializaBuffers(){
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
 
          //Dibuja la forma correspondiente
-          miForma.dibujate(buffer2Graphics, evt.getY(),evt.getX(),new Trazo (jSlider1.getValue()));
+          miForma.dibujate(buffer2Graphics, evt.getY(),evt.getX(),new Trazo (jSlider1.getValue(), true));
       
     }//GEN-LAST:event_jPanel1MouseReleased
 
