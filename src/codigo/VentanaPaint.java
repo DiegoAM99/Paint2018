@@ -32,6 +32,7 @@ public class VentanaPaint extends javax.swing.JFrame {
                                //si vale 3 pinto triangulos
                                //si vale 5 pinto pentagonos
                                //si vale 2 pinto linea
+                               //si vale 6 pinto hexagonos
     Graphics2D bufferGraphics, buffer2Graphics, jPanelGraphics = null;
     
     BasicStroke trazo1 = new BasicStroke(15);
@@ -111,6 +112,7 @@ private void inicializaBuffers(){
         jToggleButton6 = new javax.swing.JToggleButton();
         jSlider1 = new javax.swing.JSlider();
         jSpinner1 = new javax.swing.JSpinner();
+        jToggleButton7 = new javax.swing.JToggleButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -281,6 +283,14 @@ private void inicializaBuffers(){
             }
         });
 
+        jToggleButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/hexagono.png"))); // NOI18N
+        jToggleButton7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jToggleButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jToggleButton7MousePressed(evt);
+            }
+        });
+
         jMenu1.setText("File");
         jMenu1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -328,8 +338,9 @@ private void inicializaBuffers(){
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -358,7 +369,9 @@ private void inicializaBuffers(){
                         .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(91, 91, 91)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 107, Short.MAX_VALUE))
@@ -383,6 +396,7 @@ private void inicializaBuffers(){
             case 5: miForma = new Pentagono(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
             case 24: miForma = new Estrella(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
             case 2: miForma = new Linea(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
+            case 6: miForma = new Hexagono(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
         }
         
         
@@ -508,6 +522,11 @@ private void inicializaBuffers(){
         jSlider1.setValue((int) jSpinner1.getValue());
     }//GEN-LAST:event_jSpinner1StateChanged
 
+    private void jToggleButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton7MousePressed
+        formaSeleccionada = 6;
+        deSelecciona();
+    }//GEN-LAST:event_jToggleButton7MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -565,5 +584,6 @@ private void inicializaBuffers(){
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToggleButton jToggleButton6;
+    private javax.swing.JToggleButton jToggleButton7;
     // End of variables declaration//GEN-END:variables
 }
