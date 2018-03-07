@@ -25,25 +25,26 @@ import javax.swing.JToggleButton;
  * @author Diego Álvarez
  */
 public class VentanaPaint extends javax.swing.JFrame {
-    BufferedImage buffer , buffer2= null;
+
+    BufferedImage buffer, buffer2 = null;
     Forma miForma;
-    Color colorSeleccionado =  Color.BLACK;
+    Color colorSeleccionado = Color.BLACK;
     int formaSeleccionada = 100; //si vale 100 pinto circulos
-                               //si vale 4 pinto cuadrados
-                               //si vale 3 pinto triangulos
-                               //si vale 5 pinto pentagonos
-                               //si vale 2 pinto linea
-                               //si vale 6 pinto hexagonos
-                               //si vale 8 pinto octogonos
+    //si vale 4 pinto cuadrados
+    //si vale 3 pinto triangulos
+    //si vale 5 pinto pentagonos
+    //si vale 2 pinto linea
+    //si vale 6 pinto hexagonos
+    //si vale 8 pinto octogonos
     Graphics2D bufferGraphics, buffer2Graphics, jPanelGraphics = null;
-    
+
     BasicStroke trazo1 = new BasicStroke(15);
     BasicStroke trazo2 = new BasicStroke(15,
-                                        BasicStroke.CAP_BUTT,
-                                        BasicStroke.JOIN_MITER, 
-                                        10.0f, 
-                                        new float[]{10.0f}, 
-                                        0.0f);
+            BasicStroke.CAP_BUTT,
+            BasicStroke.JOIN_MITER,
+            10.0f,
+            new float[]{10.0f},
+            0.0f);
     private int x1;
     private int x2;
     private int y1;
@@ -52,50 +53,54 @@ public class VentanaPaint extends javax.swing.JFrame {
     private double yOrigen;
     private int selectCursor = -1;
     private Cursor cursorLapiz;
+
     /**
      * Creates new form VentanaPaint
      */
     public VentanaPaint() {
         initComponents();
         inicializaBuffers();
-        jDialog1.setSize(640,450);
+        jDialog1.setSize(640, 450);
     }
-private void inicializaBuffers(){
-    //creo una imagen del mismo ancho y alto que el lienzo
-    buffer = (BufferedImage)jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
-    //creo una imagen modificable
-    bufferGraphics = buffer.createGraphics();
-    //Inicializa el buffer para que sea un rectangulo rojo que ocupe todo el jpanel
-    bufferGraphics.setColor(Color.white);
-    bufferGraphics.fillRect(0,0, buffer.getWidth(), buffer.getHeight());
-    
-    //Inicializo el segundo buffer
-    buffer2 = (BufferedImage)jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
-    //creo una imagen modificable
-     buffer2Graphics = buffer2.createGraphics();
-    //Inicializa el buffer para que sea un rectangulo rojo que ocupe todo el jpanel
-    buffer2Graphics.setColor(Color.white);
-    buffer2Graphics.fillRect(0,0, buffer2.getWidth(), buffer2.getHeight());
-    
-    jPanelGraphics = (Graphics2D) jPanel1.getGraphics();
+
+    private void inicializaBuffers() {
+        //creo una imagen del mismo ancho y alto que el lienzo
+        buffer = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
+        //creo una imagen modificable
+        bufferGraphics = buffer.createGraphics();
+        //Inicializa el buffer para que sea un rectangulo rojo que ocupe todo el jpanel
+        bufferGraphics.setColor(Color.white);
+        bufferGraphics.fillRect(0, 0, buffer.getWidth(), buffer.getHeight());
+
+        //Inicializo el segundo buffer
+        buffer2 = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
+        //creo una imagen modificable
+        buffer2Graphics = buffer2.createGraphics();
+        //Inicializa el buffer para que sea un rectangulo rojo que ocupe todo el jpanel
+        buffer2Graphics.setColor(Color.white);
+        buffer2Graphics.fillRect(0, 0, buffer2.getWidth(), buffer2.getHeight());
+
+        jPanelGraphics = (Graphics2D) jPanel1.getGraphics();
     }
+
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         super.paint(g);
-        
+
         //pinto el buffer sobre el JFrame
         //primero creo una variable que apunta al sitio que quiero pintar
-        
         jPanelGraphics.drawImage(buffer, 0, 0, null);
-}
-    private void deSelecciona(){
+    }
+
+    private void deSelecciona() {
         Component[] components = (Component[]) getContentPane().getComponents();
         for (Component comp : components) {
             if (comp instanceof JToggleButton) {
-                ((JToggleButton)comp).setSelected(false);
+                ((JToggleButton) comp).setSelected(false);
             }
-        } 
+        }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -430,59 +435,81 @@ private void inicializaBuffers(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-        bufferGraphics.drawImage(buffer2,0,0,null);
+        
         //Dibuja la forma correspondiente
-            miForma.dibujate(bufferGraphics, evt.getY(),evt.getX(), new Trazo (jSlider1.getValue(), true));
-        repaint(0,0,1,1);
-         switch (formaSeleccionada) {
-        case 10:
+        // miForma.dibujate(bufferGraphics, evt.getY(),evt.getX(), new Trazo (jSlider1.getValue(), true));
+        // repaint(0,0,1,1);
+        switch (formaSeleccionada) {
+            case 10:
                 x2 = evt.getX();
                 y2 = evt.getY();
                 if (x1 != x2 || y1 != y2) {
-                    buffer2Graphics.drawLine(x1, y1, x2, y2);
+                    bufferGraphics.setColor(colorSeleccionado);
+                    bufferGraphics.drawLine(x1, y1, x2, y2);
+                    
                     x1 = x2;
                     y1 = y2;
+                    //System.out.println(x1+" "+x2 + " " + y1 + "" + y2);
                 }
                 break;
             default:
+                bufferGraphics.drawImage(buffer2, 0, 0, null);
                 miForma.dibujate(bufferGraphics, evt.getY(), evt.getX(), new Trazo(jSlider1.getValue(), true));
+                
                 break;
-         }
-         repaint(0, 0, 1, 1);
+        }
+        repaint(0, 0, 1, 1);
+        
     }//GEN-LAST:event_jPanel1MouseDragged
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
         // Inicializo la ellipse que usaré para dibujar en el buffer
-        switch(formaSeleccionada){
-            case 100: miForma = new Circulo(evt.getX(), evt.getY(),colorSeleccionado, jCheckBox1.isSelected()); break;
-            case 4: miForma = new Cuadrado(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
-            case 3: miForma = new Triangulo(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
-            case 5: miForma = new Pentagono(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
-            case 24: miForma = new Estrella(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
-            case 2: miForma = new Linea(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
-            case 6: miForma = new Hexagono(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
+        switch (formaSeleccionada) {
+            case 100:
+                miForma = new Circulo(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected());
+                break;
+            case 4:
+                miForma = new Cuadrado(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected());
+                break;
+            case 3:
+                miForma = new Triangulo(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected());
+                break;
+            case 5:
+                miForma = new Pentagono(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected());
+                break;
+            case 24:
+                miForma = new Estrella(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected());
+                break;
+            case 2:
+                miForma = new Linea(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected());
+                break;
+            case 6:
+                miForma = new Hexagono(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected());
+                break;
             case 10:
                 x1 = evt.getX();
                 y1 = evt.getY();
                 break;
-            case 8: miForma = new Octogono(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected()); break;
+            case 8:
+                miForma = new Octogono(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected());
+                break;
         }
-        
-        
+
+
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
 
-         //Dibuja la forma correspondiente
-          //miForma.dibujate(buffer2Graphics, evt.getY(),evt.getX(),new Trazo (jSlider1.getValue(), true));
-         switch (formaSeleccionada) {
-              case 10:
-                buffer2Graphics.drawLine(evt.getX(), evt.getY(), evt.getX(), evt.getY());
+        //Dibuja la forma correspondiente
+        //miForma.dibujate(buffer2Graphics, evt.getY(),evt.getX(),new Trazo (jSlider1.getValue(), true));
+        switch (formaSeleccionada) {
+            case 10:
+                buffer2Graphics.drawImage(buffer, 0, 0, null);
                 break;
             default:
                 miForma.dibujate(buffer2Graphics, evt.getY(), evt.getX(), new Trazo(jSlider1.getValue(), true));
                 break;
-         }
+        }
     }//GEN-LAST:event_jPanel1MouseReleased
 
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
@@ -497,7 +524,7 @@ private void inicializaBuffers(){
         jDialog1.setVisible(false);
         colorSeleccionado = jColorChooser1.getColor();
         jLabel1.setBackground(colorSeleccionado);
-        
+
     }//GEN-LAST:event_jButton2MousePressed
 
     private void jToggleButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton1MousePressed
@@ -538,49 +565,48 @@ private void inicializaBuffers(){
 
     private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
         int seleccion = jFileChooser1.showSaveDialog(this);
-        
-        if(seleccion== JFileChooser.APPROVE_OPTION){
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
             //si llego aqui es que el usuario ha pulsado "guardar" cuando ha salido
             //el menú del jFileChooser
             File fichero = jFileChooser1.getSelectedFile();
             String nombre = fichero.getName();
-            String extension = nombre.substring(nombre.lastIndexOf('.')+1);
-            if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")){
-                try{
+            String extension = nombre.substring(nombre.lastIndexOf('.') + 1);
+            if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
+                try {
                     ImageIO.write(buffer, extension, fichero);
+                } catch (IOException e) {
                 }
-                catch(IOException e){}
             }
         }
     }//GEN-LAST:event_jMenuItem1MousePressed
 
     private void jMenu1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jMenu1StateChanged
-        JMenu menu= (JMenu) evt.getSource();
-        if(!menu.isSelected()){
+        JMenu menu = (JMenu) evt.getSource();
+        if (!menu.isSelected()) {
             repaint();
         }
-        
+
     }//GEN-LAST:event_jMenu1StateChanged
 
     private void jMenuItem2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MousePressed
         int seleccion = jFileChooser1.showOpenDialog(this);
-        
-        if (seleccion == JFileChooser.APPROVE_OPTION){
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
             //si llego aquí es que el usuario ha pulsado en "guardar" cuando ha salido 
             //el menú del jFileChooser
             File fichero = jFileChooser1.getSelectedFile();
             String nombre = fichero.getName();
-            String extension = nombre.substring(nombre.lastIndexOf('.')+1);
+            String extension = nombre.substring(nombre.lastIndexOf('.') + 1);
             BufferedImage imagen = null;
-            if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")){
-                try{
+            if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
+                try {
                     imagen = ImageIO.read(fichero);
-                    bufferGraphics.drawImage(imagen,0,0,null);
-                    buffer2Graphics.drawImage(imagen,0,0,null);
-                    
+                    bufferGraphics.drawImage(imagen, 0, 0, null);
+                    buffer2Graphics.drawImage(imagen, 0, 0, null);
+
                     repaint();
-                }
-                catch(IOException e){
+                } catch (IOException e) {
                 }
             }
         }
@@ -617,7 +643,7 @@ private void inicializaBuffers(){
     }//GEN-LAST:event_jPanel1MouseEntered
 
     private void jPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseExited
-      setCursor(Cursor.DEFAULT_CURSOR);
+        setCursor(Cursor.DEFAULT_CURSOR);
     }//GEN-LAST:event_jPanel1MouseExited
 
     private void jToggleButton9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton9MousePressed
@@ -626,7 +652,7 @@ private void inicializaBuffers(){
     }//GEN-LAST:event_jToggleButton9MousePressed
 
     private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton8ActionPerformed
-        
+
     }//GEN-LAST:event_jToggleButton8ActionPerformed
 
     /**
