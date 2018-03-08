@@ -524,7 +524,7 @@ public class VentanaPaint extends javax.swing.JFrame {
                 x1 = evt.getX();
                 y1 = evt.getY();
                 break;
-                case 11:
+            case 11:
                 x1 = evt.getX();
                 y1 = evt.getY();
                 break;
