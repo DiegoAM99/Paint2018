@@ -11,7 +11,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.geom.Arc2D;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -56,11 +55,6 @@ public class VentanaPaint extends javax.swing.JFrame {
     private int selectCursor = -1;
     private Cursor cursorLapiz;
     private boolean flagPaint=false;
-    int rectWidth;
-    int rectHeight;
-    Graphics2D g2;
-    int x;
-    int y;
     /**
      * Creates new form VentanaPaint
      */
@@ -142,7 +136,6 @@ public class VentanaPaint extends javax.swing.JFrame {
         jToggleButton8 = new javax.swing.JToggleButton();
         jToggleButton9 = new javax.swing.JToggleButton();
         jToggleButton10 = new javax.swing.JToggleButton();
-        jToggleButton11 = new javax.swing.JToggleButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -356,14 +349,6 @@ public class VentanaPaint extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/borrador.png"))); // NOI18N
-        jToggleButton11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToggleButton11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jToggleButton11MousePressed(evt);
-            }
-        });
-
         jMenu1.setText("File");
         jMenu1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -399,8 +384,6 @@ public class VentanaPaint extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,9 +414,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -505,13 +486,6 @@ public class VentanaPaint extends javax.swing.JFrame {
                     y1 = y2;
                 }
                 break;
-                case 12:
-                    g2.setPaint(colorSeleccionado);
-                    g2.fill(new Arc2D.Double(x, y, rectWidth,
-                         rectHeight, 90,
-                         135, Arc2D.OPEN));
-                    bufferGraphics.setColor(Color.WHITE);
-                    bufferGraphics.drawLine(x, y, x, y);
             default:
                 bufferGraphics.drawImage(buffer2, 0, 0, null);
                 miForma.dibujate(bufferGraphics, evt.getY(), evt.getX(), new Trazo(jSlider1.getValue()));
@@ -554,12 +528,6 @@ public class VentanaPaint extends javax.swing.JFrame {
                 x1 = evt.getX();
                 y1 = evt.getY();
                 break;
-            case 12:
-                    g2.setPaint(colorSeleccionado);
-                    g2.fill(new Arc2D.Double(x, y, rectWidth,
-                         rectHeight, 90,
-                         135, Arc2D.OPEN));
-                    break;
             case 8:
                 miForma = new Octogono(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected());
                 break;
@@ -577,13 +545,7 @@ public class VentanaPaint extends javax.swing.JFrame {
                 break;
             case 11:
                 buffer2Graphics.drawImage(buffer, 0, 0, null);
-                break;
-                case 12:
-                    g2.setPaint(colorSeleccionado);
-                    g2.fill(new Arc2D.Double(x, y, rectWidth,
-                         rectHeight, 90,
-                         135, Arc2D.OPEN));
-                    buffer2Graphics.drawImage(buffer, 0, 0, null);
+                break;  
             default:
                 miForma.dibujate(buffer2Graphics, evt.getY(), evt.getX(), new Trazo(jSlider1.getValue()));
                 break;
@@ -742,11 +704,6 @@ public class VentanaPaint extends javax.swing.JFrame {
         deSelecciona();
     }//GEN-LAST:event_jToggleButton10MousePressed
 
-    private void jToggleButton11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton11MousePressed
-        formaSeleccionada = 12;
-        deSelecciona();
-    }//GEN-LAST:event_jToggleButton11MousePressed
-
     /**
      * @param args the command line arguments
      */
@@ -800,7 +757,6 @@ public class VentanaPaint extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton10;
-    private javax.swing.JToggleButton jToggleButton11;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton4;
