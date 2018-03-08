@@ -1,5 +1,5 @@
 /*
- * esta clase dibuja pentagonos (o eso creo)
+ * esta clase dibuja hexágonos
  */
 package codigo;
 

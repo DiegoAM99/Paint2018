@@ -1,5 +1,5 @@
 /*
- * La clase forma es parte comun de todas 
+ * La clase forma es parte comun de todas las figuras
  */
 package codigo;
 

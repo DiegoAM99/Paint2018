@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Esta es la Ventana Principal del Paint
  */
 package codigo;
 
@@ -95,6 +93,10 @@ public class VentanaPaint extends javax.swing.JFrame {
     }
 
     private void deSelecciona() {
+        //Este metodo lo que hace es que cuando vas a cambiar de una figura
+        //a otra, no se te quede marcada la casilla de la figura que hayas
+        //marcado anterior, sino que se te qudará marcada la casilla
+        //de la nueva figura que hayas seleccionado
         Component[] components = (Component[]) getContentPane().getComponents();
         for (Component comp : components) {
             if (comp instanceof JToggleButton) {
@@ -452,11 +454,11 @@ public class VentanaPaint extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-        
         //Dibuja la forma correspondiente
         // miForma.dibujate(bufferGraphics, evt.getY(),evt.getX(), new Trazo (jSlider1.getValue(), true));
         // repaint(0,0,1,1);
         switch (formaSeleccionada) {
+            //Con este caso selecciono el lapiz y me dibuja una linea a mano alzada
             case 10:
                 x2 = evt.getX();
                 y2 = evt.getY();
@@ -466,9 +468,11 @@ public class VentanaPaint extends javax.swing.JFrame {
                     
                     x1 = x2;
                     y1 = y2;
-                    //System.out.println(x1+" "+x2 + " " + y1 + "" + y2);
                 }
                 break;
+                //Con este caso selecciono el borrador, que lo que hace es 
+                //pintar en blanco,  que es como si lo borrara ya que quieres
+                //quitar la/s figura/s que tienes pinatada/s.
                 case 11:
                 x2 = evt.getX();
                 y2 = evt.getY();
@@ -478,7 +482,6 @@ public class VentanaPaint extends javax.swing.JFrame {
                     
                     x1 = x2;
                     y1 = y2;
-                    //System.out.println(x1+" "+x2 + " " + y1 + "" + y2);
                 }
                 break;
             default:
@@ -492,6 +495,7 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
         // Inicializo la ellipse que usaré para dibujar en el buffer
+        //Es decir, que dependiendo de la forma hayas seleccionado, te la dibujará.
         switch (formaSeleccionada) {
             case 100:
                 miForma = new Circulo(evt.getX(), evt.getY(), colorSeleccionado, jCheckBox1.isSelected());
@@ -531,7 +535,6 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
-
         //Dibuja la forma correspondiente
         //miForma.dibujate(buffer2Graphics, evt.getY(),evt.getX(),new Trazo (jSlider1.getValue(), true));
         switch (formaSeleccionada) {
@@ -628,7 +631,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         int seleccion = jFileChooser1.showOpenDialog(this);
 
         if (seleccion == JFileChooser.APPROVE_OPTION) {
-            //si llego aquí es que el usuario ha pulsado en "guardar" cuando ha salido 
+            //si llego aquí es que el usuario ha pulsado en "cargar" cuando ha salido 
             //el menú del jFileChooser
             File fichero = jFileChooser1.getSelectedFile();
             String nombre = fichero.getName();

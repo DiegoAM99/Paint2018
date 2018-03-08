@@ -1,5 +1,5 @@
 /*
- * esta clase dibuja triangulos
+ * esta clase dibuja estrellas
  */
 package codigo;
 
