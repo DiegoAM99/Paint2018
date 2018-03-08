@@ -35,6 +35,8 @@ public class VentanaPaint extends javax.swing.JFrame {
     //si vale 2 pinto linea
     //si vale 6 pinto hexagonos
     //si vale 8 pinto octogonos
+    //si vale 10 uso el pincel
+    //si vale 11 uso el borrador
     Graphics2D bufferGraphics, buffer2Graphics, jPanelGraphics = null;
 
     BasicStroke trazo1 = new BasicStroke(15);
@@ -584,7 +586,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton4MousePressed
 
     private void jToggleButton5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton5MousePressed
-        //elige pentagono
+        //elige pentagonos
         formaSeleccionada = 5;
         deSelecciona();
     }//GEN-LAST:event_jToggleButton5MousePressed
@@ -596,7 +598,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton3MousePressed
 
     private void jToggleButton6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton6MousePressed
-        //elige estrella
+        //elige estrellas
         formaSeleccionada = 24;
         deSelecciona();
     }//GEN-LAST:event_jToggleButton6MousePressed
@@ -663,11 +665,13 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_jSpinner1StateChanged
 
     private void jToggleButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton7MousePressed
+        //elige hexagonos
         formaSeleccionada = 6;
         deSelecciona();
     }//GEN-LAST:event_jToggleButton7MousePressed
 
     private void jToggleButton8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton8MousePressed
+        //elige pincel
         formaSeleccionada = 10;
         deSelecciona();
     }//GEN-LAST:event_jToggleButton8MousePressed
@@ -685,6 +689,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseExited
 
     private void jToggleButton9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton9MousePressed
+        //elige octógonos
         formaSeleccionada = 8;
         deSelecciona();
     }//GEN-LAST:event_jToggleButton9MousePressed
@@ -694,6 +699,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton8ActionPerformed
 
     private void jToggleButton10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton10MousePressed
+        //elige borrador
         formaSeleccionada = 11;
         deSelecciona();
     }//GEN-LAST:event_jToggleButton10MousePressed
